@@ -54,7 +54,7 @@ function setup(){
 }
 
 function draw(){
-	frameRate(20);
+	frameRate(15);
 	
 	img = imgs[count];
 
