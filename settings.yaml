@@ -1,0 +1,45 @@
+# 颜色：RGB三原色数值 0~255
+# 设置高光时，尽量选择接近主色的颜色，看起来会和谐一点
+
+## 视频里的蓝色调
+#base_color: # 主色
+#  - 30
+#  - 100
+#  - 100
+#highlight_points_color_1: # 高光粒子色1
+#  - 150
+#  - 120
+#  - 220
+#highlight_points_color_2: # 高光粒子色2
+#  - 128
+#  - 140
+#  - 140
+
+base_color:
+  - 228
+  - 100
+  - 100
+highlight_points_color_1:
+  - 180
+  - 87
+  - 200
+highlight_points_color_2:
+  - 228
+  - 140
+  - 140
+
+period_time: 1000 * 2 
+times: 2
+frame_num: 24
+wait: 60 
+seed_points_num: 2000 
+highlight_rate: 0.2
+frame_width: 1024 
+frame_height: 980 
+scale: 10
+curve: "heart"
+title: "I Love You"
+background_img_dir: "imgs"
+set_bg_imgs: False 
+bg_weight: 0.4
+curve_weight: 1
