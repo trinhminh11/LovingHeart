@@ -3,6 +3,8 @@ let n_frames = 24;
 function preload(){
 	mydata = []
 
+	font = loadFont('AlexBrush-Regular.ttf');
+
 	for(let i = 0; i < n_frames; i++){
 		mydata.push(loadBytes("frames/" + i + ".bin"));
 	}
@@ -50,7 +52,8 @@ function setup(){
 	center_y = windowHeight/2;
 
 	x = center_x - frame.shape[0]/2;
-	y = center_y - frame.shape[1]/2;
+	y = center_y - frame.shape[1]/2 ;
+	y *= 1/3
 }
 
 function draw(){
@@ -62,6 +65,13 @@ function draw(){
 	
 	count += 1;
 	count %= 24;
+
+
+	fill(228, 100, 100);
+	textFont(font);
+	textSize(100);
+	textAlign(CENTER);
+	text('Nguyễn Trúc Quỳnh', center_x, center_y+center_y/2);
 
 }
 
