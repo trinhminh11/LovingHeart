@@ -71,7 +71,7 @@ function draw(){
 	textFont(font);
 	textSize(100);
 	textAlign(CENTER);
-	text('Nguyễn Trúc Quỳnh', center_x, center_y+center_y/2);
+	// text('', center_x, center_y+center_y/2);
 
 }
 
