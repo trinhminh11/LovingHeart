@@ -4,25 +4,25 @@ import numpy as np
 
 class App:
 	def __init__(
-			self, 
-			title="I Love You", 
+			self,
+			title="I Love You",
 
-			frame_num=24, 
+			frame_num=24,
 
-			seed_points_num=2000, 
-			seed_num=0, 
+			seed_points_num=2000,
+			seed_num=0,
 
 			highlight_rate=0.2,
 
-			curve_weight=1, 
+			curve_weight=1,
 			scale=10,
 
-			frame_width=1080, 
-			frame_height=960, 
+			frame_width=1080,
+			frame_height=960,
 
-			base_color = [228, 100, 100], 
-			highlight_points_color_1=[228, 140, 140], 
-			highlight_points_color_2=[180, 87, 200], 
+			base_color = [228, 100, 100],
+			highlight_points_color_1=[228, 140, 140],
+			highlight_points_color_2=[180, 87, 200],
 		):
 
 		pygame.init()
@@ -39,9 +39,9 @@ class App:
 
 		self.curve_weight = curve_weight
 
-		self.frame_width = frame_width 
-		self.frame_height = frame_height 
-		
+		self.frame_width = frame_width
+		self.frame_height = frame_height
+
 		self.screen = pygame.display.set_mode((self.frame_width, self.frame_height))
 
 		self.center_x = self.frame_width / 2
@@ -53,15 +53,15 @@ class App:
 		self.pattern = ["11", "01", "100", "0", "0000000", "1000", "1011", "0000000", "11", "00", "10", "0000", "0000000", "1", "010", "00", "10", "0000"]
 		self.frame_points = []
 		self.frame_num = frame_num
-		self.seed_num = seed_num 
+		self.seed_num = seed_num
 		self.seed_points_num = seed_points_num
-		self.scale = scale 
+		self.scale = scale
 		self.wait = int(1000*1.5) // frame_num
 
-		
-	
+
+
 	def heart_function(self, t, frame_idx=0, scale=5.20):
-		trans = 3 - (1 + self.periodic_func(frame_idx, self.frame_num)) * 0.5 
+		trans = 3 - (1 + self.periodic_func(frame_idx, self.frame_num)) * 0.5
 
 		x = 15 * (np.sin(t) ** 3)
 		t = np.where((pi < t) & (t < 2 * pi), 2 * pi - t, t)
@@ -71,7 +71,7 @@ class App:
 		center_ids = np.where((x > -ign_area) & (x < ign_area))
 
 		if np.random.random() > 0.32:
-			x, y = np.delete(x, center_ids), np.delete(y, center_ids) 
+			x, y = np.delete(x, center_ids), np.delete(y, center_ids)
 
 		x *= scale
 		y *= scale
@@ -145,8 +145,8 @@ class App:
 			point_size = np.concatenate((point_size, p_size), 0)
 			tag_ = np.ones_like(x_) * 2
 			tag = np.concatenate((tag, tag_), 0)
-		
-		halo_ratio = int(7 + 2 * abs(cy)) 
+
+		halo_ratio = int(7 + 2 * abs(cy))
 
 		x_, y_ = self.heart_function(seed_points, frame_idx, scale=self.scale + 0.9)
 		x_1, y_1 = self.shrink(x_, y_, halo_ratio, offset=18, dist_func="uniform")
@@ -170,7 +170,7 @@ class App:
 		halo_len = x_1.shape[0] + x_2.shape[0] + x_3.shape[0]
 		p_size = np.random.choice([1, 2, 3], halo_len, replace=True, p=[0.7, 0.2, 0.1])
 		point_size = np.concatenate((point_size, p_size), 0)
-		
+
 		tag_ = np.ones(halo_len) * 2 * 3
 		tag = np.concatenate((tag, tag_), 0)
 
@@ -182,7 +182,7 @@ class App:
 		for frame_idx in range(self.frame_num):
 			np.random.seed(self.seed_num)
 			self.frame_points.append(self.gen_points(self.seed_points_num, frame_idx))
-		
+
 
 		frames = []
 
@@ -227,14 +227,14 @@ class App:
 			frames.append(frame)
 
 		return frames
-	
-	def draw(self, frame):
+
+	def draw(self, frame: np.ndarray):
 		self.screen.fill((0, 0, 0))
 
-		self.screen.blit(pygame.image.frombuffer(frame.tostring(), frame.shape[1::-1], "BGR"), (0, 0))
+		self.screen.blit(pygame.image.frombuffer(frame.tobytes(), frame.shape[1::-1], "BGR"), (0, 0))
 
 		pygame.display.update()
-	
+
 	def run(self):
 		frames = self.get_frames()
 
@@ -255,7 +255,7 @@ class App:
 				for event in pygame.event.get():
 					if event.type == pygame.QUIT:
 						run = False
-			
+
 
 		pygame.quit()
 
@@ -265,4 +265,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
